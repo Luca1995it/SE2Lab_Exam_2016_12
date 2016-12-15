@@ -18,7 +18,7 @@ paths:
       description: it returns the complete lest of all students in the university
       responses:
         200:
-          description: the home page
+          description: tle student's list
           
   /searchStudent:
     post:
@@ -40,7 +40,7 @@ paths:
           schema: 
             properties:
               error:
-                type: integer
+                type: string
         404:
           description: no students with that ID or SSN
           
@@ -72,6 +72,50 @@ paths:
                 type: integer
         404:
           description: no students with that ID or SSN
+          
+  /addStudents:
+    post:
+      summary: delete a student
+      description: it returns the name of a student, given his/her ID or SSN
+      parameters:
+        - name: ID
+          in: formData
+          description: ID of the student
+          required: true
+          type: string
+        - name: SSN
+          in: formData
+          description: SSN of the student
+          required: true
+          type: string
+         - name: name
+          in: formData
+          description: name of the student
+          required: true
+          type: string
+        - name: address
+          in: formData
+          description: address of the student
+          required: true
+          type: string
+        - name: mark
+          in: formData
+          description: mark of the student
+          required: true
+          type: string
+      responses:
+        200:
+          description: name of the student
+          schema: 
+            $ref: "#/definitions/student"
+        406:
+          description: ID of error
+          schema: 
+            properties:
+              error:
+                type: integer
+        404:
+          description: no students with that ID or SSN
             
   /searchByMark:
     post:
@@ -89,7 +133,8 @@ paths:
           schema: 
             type: array
             items:
-              $ref: "#/definitions/student"      
+              $ref: "#/definitions/student"
+      
 
 definitions:
   student:

@@ -290,17 +290,17 @@ app.post('/searchByMark', function(request,response){
                 response.writeHead(200, headers);
                 response.end(JSON.stringify(studentManager.searchByMark('less',mark))); 
             } else{
-                response.writeHead(500, headers);
+                response.writeHead(200, headers);
                 response.end('Parameter error');
             }
         }
 		else{
-            response.writeHead(500, headers);
+            response.writeHead(200, headers);
             response.end('Parameter error');
         }
 	}
     else{
-        response.writeHead(500, headers);
+        response.writeHead(200, headers);
         response.end('Internal error');
     }
 });
