@@ -134,15 +134,25 @@ var insertStudent = function insertStudent(student)
 }
 
 //AGGIUNGERE QUI SOTTO NUOVE FUNZIONI
-var searchByMark = function searchByMark(mark)
+var searchByMark = function searchByMark(type,mark)
 {
     var res = [];
-	for (i=0; i < studentList.length; i++)
-	{
-		if (studentList[i].mark == mark)
-		{
-			res..push(studentList[i]);
-		}
+    if(type=='greater'){
+        for (i=0; i < studentList.length; i++)
+        {
+            if (studentList[i].mark > mark)
+            {
+                res.push(studentList[i]);
+            }
+        }
+    } else {
+        for (i=0; i < studentList.length; i++)
+        {
+            if (studentList[i].mark < mark)
+            {
+                res.push(studentList[i]);
+            }
+        }
     }
     return res;
 }

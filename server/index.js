@@ -179,7 +179,7 @@ app.post('/deleteStudent', function(request, response)
 			response.writeHead(404, headers);
 			response.end(JSON.stringify());
 		}
-	}post
+	}
     else    
 		{
         	//unaceptable input
@@ -267,27 +267,45 @@ app.post('/addStudent', function(request, response)
 
 });
 
-app.post('/searchByMark', function(req,res){
+//AGGIUNGERE QUI SOTTO NUOVE FUNZIONI
+app.post('/searchByMark', function(request,response){
     
+    var headers = {};
+	headers["Access-Control-Allow-Origin"] = "*";
+	headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+	headers["Access-Control-Allow-Credentials"] = false;
+	headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+	headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+	headers["Content-Type"] = "application/json";
     //check body and parameters
 	if ( typeof request.body !== 'undefined' && request.body)
 	{
 		if (typeof request.body.mark !== 'undefined' && request.body.mark) {
 		  	var mark = request.body.mark;
-            if((mark[0]=='>') and !isNaN(mark[1]))
+            if((mark[0]=='>') && !isNaN(mark[1]))
             { 
-                res.end(JSON.stringify(studentManager.searchByMark('greater',mark))); 
-            } else if ((mark[0]=='<') and !isNaN(mark[1])) {
-                res.end(JSON.stringify(studentManager.searchByMark('less',mark))); 
-            } else res.end('Parameter error');
+                response.writeHead(200, headers);
+                response.end(JSON.stringify(studentManager.searchByMark('greater',mark))); 
+            } else if ((mark[0]=='<') && !isNaN(mark[1])) {
+                response.writeHead(200, headers);
+                response.end(JSON.stringify(studentManager.searchByMark('less',mark))); 
+            } else{
+                response.writeHead(500, headers);
+                response.end('Parameter error');
+            }
         }
-		else res.end('Parameter error');
+		else{
+            response.writeHead(500, headers);
+            response.end('Parameter error');
+        }
 	}
-    else res.end('Internal error');
+    else{
+        response.writeHead(500, headers);
+        response.end('Internal error');
+    }
 });
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
-//AGGIUNGERE QUI SOTTO NUOVE FUNZIONI
