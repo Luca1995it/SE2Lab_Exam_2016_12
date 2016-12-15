@@ -149,6 +149,7 @@ var searchByMark = function searchByMark(mark)
 
 
 //export functions
+exports.searchByMark = searchByMark;
 exports.searchStudentID = searchStudentID; 
 exports.searchStudentSSN = searchStudentSSN; 
 exports.deleteStudentID = deleteStudentID; 

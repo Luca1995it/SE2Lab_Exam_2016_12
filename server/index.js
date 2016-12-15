@@ -80,7 +80,7 @@ app.post('/searchStudent', function(request, response)
     if (studentID!="not defined" && studentID!="body undefined")
 	{
 		//aceptable input
-		//search for a student
+		//spostearch for a student
 		var student = studentManager.searchStudentID(studentID);
 		//if exists
 		if (student != null)
@@ -179,7 +179,7 @@ app.post('/deleteStudent', function(request, response)
 			response.writeHead(404, headers);
 			response.end(JSON.stringify());
 		}
-	}
+	}post
     else    
 		{
         	//unaceptable input
@@ -265,6 +265,25 @@ app.post('/addStudent', function(request, response)
 		response.end(JSON.stringify("1"));
 	}   
 
+});
+
+app.post('/searchByMark', function(req,res){
+    
+    //check body and parameters
+	if ( typeof request.body !== 'undefined' && request.body)
+	{
+		if (typeof request.body.mark !== 'undefined' && request.body.mark) {
+		  	var mark = request.body.mark;
+            if((mark[0]=='>') and !isNaN(mark[1]))
+            { 
+                res.end(JSON.stringify(studentManager.searchByMark('greater',mark))); 
+            } else if ((mark[0]=='<') and !isNaN(mark[1])) {
+                res.end(JSON.stringify(studentManager.searchByMark('less',mark))); 
+            } else res.end('Parameter error');
+        }
+		else res.end('Parameter error');
+	}
+    else res.end('Internal error');
 });
 
 app.listen(app.get('port'), function() {
